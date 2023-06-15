@@ -25,7 +25,12 @@ router.post("/add", async (req,res)=>{
     res.redirect("/list")
 })
 
-router.get("/list",(req,res)=>{
+router.get("/list", async (req,res)=>{
+    const pelis = await pool.query("SELECT * FROM pelis") //WHERE user_id = ?", [req.user.id])
+    res.render("links/list", {pelis})
+})
+
+router.get("/edit",(req,res)=>{
     
 })
 
