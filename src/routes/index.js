@@ -16,12 +16,12 @@ router.get("/add",(req,res)=>{
 
 router.post("/add", async (req,res)=>{
     const { titulo, description} = req.body
-    const newFoto = {
+    const newPeli = {
         titulo,
         description,
 	    //user_id: req.user.id
     }
-    await pool.query("INSERT INTO pelis set ?", [newFoto])
+    await pool.query("INSERT INTO pelis set ?", [newPeli])
     res.redirect("/list")
 })
 
@@ -30,8 +30,29 @@ router.get("/list", async (req,res)=>{
     res.render("links/list", {pelis})
 })
 
-router.get("/edit",(req,res)=>{
-    
+router.get("/edit/:id", async (req,res) =>{
+    const {id} = req.params
+    const pelis = await pool.query("SELECT * FROM pelis WHERE id = ?", [id])
+    res.render("links/edit",{peli: pelis[0]} )
+
+})
+
+router.post("/edit/:id", async (req,res)=>{
+    const {id} = req.params
+    const { titulo, description} = req.body
+    const newPeli = {
+        titulo,
+        description
+    }
+    await pool.query("UPDATE pelis set ? WHERE id = ?" , [newPeli, id])
+    res.redirect("/list")
+
+})
+
+router.get("/delete/:id", async (req,res) =>{
+    const {id} = req.params
+    await pool.query("DELETE FROM pelis WHERE id = ?", [id] )
+    res.redirect("/list")
 })
 
 module.exports = router

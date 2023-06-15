@@ -3,11 +3,11 @@
         <div class="col-md-4 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <form action="/add" method="POST">
+                    <form action="/edit/{{peli.id}}" method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="titulo" value="{{titulo}}" placeholder="Titulo..." autofocus>    
+                            <input type="text" value="{{peli.titulo}}" class="form-control" name="titulo" placeholder="Titulo..." autofocus>    
                         </div>
-                        <div class="form-group"><textarea name="description" rows="12" class="form-control" placeholder="Descripción..." value="{{description}}"></textarea></div>
+                        <div class="form-group"><textarea name="description" rows="12" class="form-control" placeholder="Descripción..."> {{peli.description}}</textarea></div>
                         <div class="form-group"> <button class="btn btn-success btn-block">Guardar</button></div>
                     </form>
                 </div>
