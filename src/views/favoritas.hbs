@@ -10,21 +10,10 @@
                         </a>
                         <p class="m-2">{{description}}</p>
                         <p></p>
-                        <a href="/delete/{{id}}" class="btn btn-danger">Eliminar</a>
-                        <a href="/edit/{{id}}" class="btn btn-secondary">Editar</a>
-                        <p></p>
-                        <a href="/favoritos/{{id}}">añadir a favorito</a>
+                        <a href="/desfavoritos/{{id}}">quitar de favoritos</a>
                     </div>
                 </div>
             </div>
-        {{else}}
-            <div class="col-md-4 mx-auto">
-                <div class="card card-body text-center">
-                    <p>no hay pelis</p>
-                    <a href="/add">Añade una peli</a>
-                </div>
-            </div>
         {{/each}}
-
     </div>
 </div>

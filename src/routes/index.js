@@ -19,14 +19,13 @@ router.post("/add", async (req,res)=>{
     const newPeli = {
         titulo,
         description,
-	    //user_id: req.user.id
     }
     await pool.query("INSERT INTO pelis set ?", [newPeli])
     res.redirect("/list")
 })
 
 router.get("/list", async (req,res)=>{
-    const pelis = await pool.query("SELECT * FROM pelis") //WHERE user_id = ?", [req.user.id])
+    const pelis = await pool.query("SELECT * FROM pelis")
     res.render("links/list", {pelis})
 })
 
@@ -53,6 +52,23 @@ router.get("/delete/:id", async (req,res) =>{
     const {id} = req.params
     await pool.query("DELETE FROM pelis WHERE id = ?", [id] )
     res.redirect("/list")
+})
+
+router.get("/favoritos/:id",async(req,res)=>{
+    const {id} = req.params
+    await pool.query ("UPDATE pelis SET favorito = 1 WHERE id = ?", [id])
+    res.redirect("/list")
+})
+
+router.get("/favoritos",async(req,res)=>{
+    const pelis = await pool.query('SELECT * FROM pelis WHERE favorito = 1')
+    res.render('favoritas', {pelis})
+})
+
+router.get("/desfavoritos/:id",async(req,res)=>{
+    const {id} = req.params
+    await pool.query ("UPDATE pelis SET favorito = 0 WHERE id = ?",[id])
+    res.redirect("/favoritos")
 })
 
 module.exports = router
